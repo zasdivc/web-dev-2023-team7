@@ -1,25 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import ProfileScreen from "../src/music/screens/profile-screen";
+import LoginScreen from "../src/music/screens/login-screen";
+import { Provider } from 'react-redux';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import {configureStore} from "@reduxjs/toolkit";
+import authReducer from "../src/music/reducers/auth-reducer";
+import Navigation from "../src/music/components/nav/navigation";
+// import AdminScreen from "./screens/admin-screen";
 
+
+const store = configureStore({
+    reducer: {auth: authReducer}
+});
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const hello = "Hello World!";
+    return (
+        <Provider store={store}>
+            <div className="container">
+                <Router>
+                    <Navigation />
+                    <Routes>
+                        <Route path="/login"
+                               element={<LoginScreen />} />
+                        <Route path="/profile"
+                               element={<ProfileScreen />} />
+                    </Routes>
+                </Router>
+            </div>
+        </Provider>
+    );
 }
-
 export default App;
