@@ -51,3 +51,25 @@ export const getAlbum = async (albumId) => {
         },});
     return response.data;
 };
+
+export const getArtist = async (artistId) => {
+    await getToken();
+    const response = await axios({
+        method: 'get',
+        url: `${SPOTIFY_API}/artists/${artistId}`,
+        headers: {
+            Authorization: `Bearer ${spotify_token}`
+        },});
+    return response.data;
+}
+
+export const getArtistTopTracks = async (artistId) => {
+    await getToken();
+    const response = await axios({
+        method: 'get',
+        url: `${SPOTIFY_API}/artists/${artistId}/top-tracks?country=US`,
+        headers: {
+            Authorization: `Bearer ${spotify_token}`
+        },});
+    return response.data.tracks;
+}

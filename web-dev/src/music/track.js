@@ -1,19 +1,46 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { getTrack } from "./music-service";
+import {getArtist, getArtistTopTracks, getTrack} from "./music-service";
 
 function TrackDetailsScreen() {
     const { id } = useParams();
     const [track, setTrack] = useState({});
+    const [artist, setArtist] = useState({});
+    const [artistTracks, setArtistTracks] = useState([]);
     const fetchTrack = async () => {
         const response = await getTrack(id);
         console.log("get track response");
         console.log(JSON.stringify(response, null, 2));
         setTrack(response);
     };
+
+    const fetchArtist = async () => {
+        if (track.album === undefined) {
+            return;
+        }
+        console.log("fetching artist");
+        const response = await getArtist(track.album.artists[0].id);
+        console.log("get artist response");
+        console.log(JSON.stringify(response, null, 2));
+        setArtist(response);
+    };
+
+    const fetchArtistTracks = async () => {
+        if (track.album === undefined) {
+            return;
+        }
+        console.log("fetching artist tracks");
+        const response = await getArtistTopTracks(track.album.artists[0].id);
+        console.log("get artist tracks response");
+        console.log(JSON.stringify(response, null, 2));
+        setArtistTracks(response);
+    }
+
     useEffect(() => {
         console.log("fetching track");
         fetchTrack();
+        fetchArtist();
+        fetchArtistTracks();
     }, []);
     console.log("rendering track");
     console.log(JSON.stringify(track, null, 2))
@@ -39,7 +66,9 @@ function TrackDetailsScreen() {
                 <div>
                     Hw
                 </div>
-                <pre>{JSON.stringify(track, null, 2)}</pre>
+                {/*<pre>{JSON.stringify(track, null, 2)}</pre>*/}
+                {/*<p>{JSON.stringify(artist.images[0], null, 2)}</p>*/}
+                {/*<pre>{JSON.stringify(artistTracks, null, 2)}</pre>*/}
 
             </div>
             }
