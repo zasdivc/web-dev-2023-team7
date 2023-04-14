@@ -18,21 +18,31 @@ function TrackDetailsScreen() {
     console.log("rendering track");
     console.log(JSON.stringify(track, null, 2))
     return (
-        <div>{
-            track.album !== undefined && <div>
-            <img src={track.album.images[1].url}/>
-                <h1>{track.name}</h1>
-                <h1>{track.album.album_type}</h1>
-                <h2>{track.album.artists[0].name}</h2>
-                <h2>{track.album.artists[0].id}</h2>
-                <h2>{track.album.name}</h2>
-                <h2>{track.album.release_date}</h2>
-                <h2>{track.album.total_tracks} songs</h2>
-                <h2>{track.album.id}</h2>
-                <h2>{Math.floor(track.duration_ms / 60000)} minutes {Math.floor((track.duration_ms % 60000) / 1000)} seconds</h2>
+        <div className="m-3">{
+            track.album !== undefined &&
+            <div>
+                <div className="row">
+                    <div className="col-3 align-items-end">
+                        <img className="float-start" width="100%" src={track.album.images[1].url}/>
+                    </div>
+                    <div className="col-9 align-self-end">
+                        <span className="size-20">Song</span>
+                        <h1 className="mt-4 mb-4 size-60">{track.name}</h1>
+                        <span className="size-20">{track.album.artists[0].name} </span>
+                        <i className="bi bi-dot bi-4x"></i>
+                        <span className="size-20">{track.album.release_date.split('-')[0]}</span>
+                        <i className="bi bi-dot bi-4x"></i>
+                        <span className="size-20">{Math.floor(track.duration_ms / 60000)} : {Math.floor((track.duration_ms % 60000) / 1000)} </span>
+                    </div>
+                </div>
+
+                <div>
+                    Hw
+                </div>
                 <pre>{JSON.stringify(track, null, 2)}</pre>
+
             </div>
-        }
+            }
         </div>
     );
 }
