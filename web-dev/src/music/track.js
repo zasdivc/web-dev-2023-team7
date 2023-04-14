@@ -15,6 +15,7 @@ function TrackDetailsScreen() {
     return (
         <div>
             <h1>{track.name}</h1>
+            <img src={track.album.images[1].url}/>
             <pre>{JSON.stringify(track, null, 2)}</pre>
         </div>
     );
