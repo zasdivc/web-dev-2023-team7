@@ -41,3 +41,13 @@ export const getTrack = async (trackId) => {
     return response.data;
 };
 
+export const getAlbum = async (albumId) => {
+    await getToken();
+    const response = await axios({
+        method: 'get',
+        url: `${SPOTIFY_API}/albums/${albumId}`,
+        headers: {
+            Authorization: `Bearer ${spotify_token}`
+        },});
+    return response.data;
+};
