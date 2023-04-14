@@ -41,25 +41,3 @@ export const getTrack = async (trackId) => {
     return response.data;
 };
 
-export const getPlaylist = async (playlistId) => {
-    await getToken();
-    const response = await axios({
-        method: 'get',
-        url: `${SPOTIFY_API}/playlists/${playlistId}`,
-        headers: {
-            Authorization: `Bearer ${spotify_token}`
-        },});
-    return response.data;
-};
-
-export const getArtistTopTracks = async (artistId) => {
-    await getToken();
-    const response = await axios({
-        method: 'get',
-        url: `${SPOTIFY_API}/artists/${artistId}/top-tracks?limit=5`,
-        headers: {
-            Authorization: `Bearer ${spotify_token}`
-        },});
-    return response.data;
-}
-
