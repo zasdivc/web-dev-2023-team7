@@ -13,19 +13,61 @@ function AlbumDetailScreen() {
         fetchAlbum();
     }, []);
     return (
-        <div>
-            <div>{
-                album.images !== undefined && <div>
-                    <img src={album.images[1].url}/>
-                    <h1>{album.name}</h1>
-                    <h1>{album.artists[0].name}</h1>
-                    <h1>{album.release_date}</h1>
-                    <h1>{album.total_tracks} songs</h1>
-                    <h1>{album.id}</h1>
-                    <pre>{JSON.stringify(album, null, 2)}</pre>
+        <div className="m-3">
+            {album.images !== undefined && <div>
+                <div className="row">
+                    <div className="col-3 align-items-end">
+                        <img className="float-start" width="100%" src={album.images[1].url}/>
+                    </div>
+                    <div className="col-9 align-self-end">
+                        <span className="size-20">Single</span>
+                        <h1 className="mt-4 mb-4 size-60">{album.name}</h1>
+                        <span className="size-20">{album.artists[0].name}</span>
+                        <i className="bi bi-dot bi-4x"></i>
+                        <span className="size-20">{album.release_date.split('-')[0]}</span>
+                        <i className="bi bi-dot bi-4x"></i>
+                        <span className="size-20">{album.total_tracks} songs</span>
+
+                    </div>
                 </div>
-            }
-            </div>
+
+                <h2 className="mt-5 mb-4">
+                    Tracks in this album
+                </h2>
+                <div className="table-responsive">
+                    <table className="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Title</th>
+                            <th scope="col">preview</th>
+                            <th scope="col">duration</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {album.tracks.items.map((albumTrack, index) => (
+                            <tr key={index}>
+                                <td className="align-middle">{index + 1}</td>
+                                <td className="align-middle">
+                                    <span className="size-20 ms-2">{albumTrack.name}</span>
+                                </td>
+                                <td className=" d-flex justify-content-center align-items-center">
+                                    <audio className="float-start" controls src={albumTrack.preview_url}>
+                                    </audio>
+                                    <i className="bi bi-heart size-20 ms-4 text-muted"></i>
+
+                                </td>
+                                <td className="align-middle">
+                                    {Math.floor(albumTrack.duration_ms / 60000)}:{Math.floor((albumTrack.duration_ms % 60000) / 1000)}
+                                </td>
+                            </tr>
+                        ))}
+                        </tbody>
+                    </table>
+                </div>
+
+                    <pre>{JSON.stringify(album.tracks, null, 2)}</pre>
+            </div>}
         </div>
 
     );
