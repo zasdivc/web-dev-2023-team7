@@ -53,7 +53,7 @@ function AlbumDetailScreen() {
                                     <span className="size-20 ms-2">{albumTrack.name}</span>
                                     {/*<span className="size-20 ms-2">{albumTrack.id}</span>*/}
                                 </td>
-                                <td className=" d-flex justify-content-center align-items-center">
+                                <td className=" d-flex align-items-center">
                                     <audio className="float-start" controls src={albumTrack.preview_url}>
                                     </audio>
                                     <i className="bi bi-heart size-20 ms-4 text-muted"></i>

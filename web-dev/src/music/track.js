@@ -100,7 +100,7 @@ function TrackDetailsScreen() {
                                     <span className="size-20 ms-2">{artistTrack.name}</span>
                                 </td>
                                 <td className="align-middle">{artistTrack.album.release_date.split('-')[0]}</td>
-                                <td className=" d-flex justify-content-center align-items-center">
+                                <td className=" d-flex  align-items-center">
                                     <audio className="float-start" controls src={artistTrack.preview_url}>
                                     </audio>
                                     <i className="bi bi-heart size-20 ms-4 text-muted"></i>
