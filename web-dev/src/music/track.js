@@ -66,7 +66,7 @@ function TrackDetailsScreen() {
                             <i className="bi bi-dot bi-4x"></i>
                             <span className="size-20">{track.album.release_date.split('-')[0]}</span>
                             <i className="bi bi-dot bi-4x"></i>
-                            <span className="size-20">{Math.floor(track.duration_ms / 60000)} : {Math.floor((track.duration_ms % 60000) / 1000)} </span>
+                            <span className="size-20">{Math.floor(track.duration_ms / 60000)}:{Math.floor((track.duration_ms % 60000) / 1000)} </span>
                         </div>
                     </div>
                 </div>
@@ -76,9 +76,47 @@ function TrackDetailsScreen() {
                     </audio>
                     <i className="bi bi-heart size-40 ms-4 text-muted"></i>
                 </div>
+
+                <h2 className="mt-5 mb-4">
+                    Popular tracks by {track.album.artists[0].name}
+                </h2>
+                <div className="table-responsive">
+                    <table className="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Title</th>
+                            <th scope="col">release_year</th>
+                            <th scope="col">preview</th>
+                            <th scope="col">duration</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {artistTracks.map((artistTrack, index) => (
+                            <tr key={index}>
+                                <td className="align-middle">{index + 1}</td>
+                                <td className="align-middle">
+                                    <img className="float-start" width="40px" height="40px" src={artistTrack.album.images[1].url}/>
+                                    <span className="size-20 ms-2">{artistTrack.name}</span>
+                                </td>
+                                <td className="align-middle">{artistTrack.album.release_date.split('-')[0]}</td>
+                                <td className=" d-flex justify-content-center align-items-center">
+                                    <audio className="float-start" controls src={artistTrack.preview_url}>
+                                    </audio>
+                                    <i className="bi bi-heart size-20 ms-4 text-muted"></i>
+
+                                </td>
+                                <td className="align-middle">
+                                    {Math.floor(artistTrack.duration_ms / 60000)}:{Math.floor((artistTrack.duration_ms % 60000) / 1000)}
+                                </td>
+                            </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
                 {/*<pre>{JSON.stringify(track, null, 2)}</pre>*/}
                 {/*<p>{JSON.stringify(artist, null, 2)}</p>*/}
-                <pre>{JSON.stringify(artistTracks, null, 2)}</pre>
+                {/*<pre>{JSON.stringify(artistTracks, null, 2)}</pre>*/}
 
             </div>
             }
