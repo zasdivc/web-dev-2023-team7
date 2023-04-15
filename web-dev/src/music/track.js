@@ -39,9 +39,14 @@ function TrackDetailsScreen() {
     useEffect(() => {
         console.log("fetching track");
         fetchTrack();
+    }, []);
+
+    useEffect(() => {
+        console.log("fetching artist and its tracks");
         fetchArtist();
         fetchArtistTracks();
-    }, []);
+    }, [track]);
+
     console.log("rendering track");
     console.log(JSON.stringify(track, null, 2))
     return (
@@ -55,19 +60,22 @@ function TrackDetailsScreen() {
                     <div className="col-9 align-self-end">
                         <span className="size-20">Song</span>
                         <h1 className="mt-4 mb-4 size-60">{track.name}</h1>
-                        <span className="size-20">{track.album.artists[0].name} </span>
-                        <i className="bi bi-dot bi-4x"></i>
-                        <span className="size-20">{track.album.release_date.split('-')[0]}</span>
-                        <i className="bi bi-dot bi-4x"></i>
-                        <span className="size-20">{Math.floor(track.duration_ms / 60000)} : {Math.floor((track.duration_ms % 60000) / 1000)} </span>
+                        <div>
+                            {artist.images !== undefined && <img className="float-start rounded-circle" width="30px" height="30px" src={artist.images[1].url}/>}
+                            <span className="size-20 ms-2">{track.album.artists[0].name} </span>
+                            <i className="bi bi-dot bi-4x"></i>
+                            <span className="size-20">{track.album.release_date.split('-')[0]}</span>
+                            <i className="bi bi-dot bi-4x"></i>
+                            <span className="size-20">{Math.floor(track.duration_ms / 60000)} : {Math.floor((track.duration_ms % 60000) / 1000)} </span>
+                        </div>
                     </div>
                 </div>
 
                 <div>
                     Hw
                 </div>
-                {/*<pre>{JSON.stringify(track, null, 2)}</pre>*/}
-                {/*<p>{JSON.stringify(artist.images[0], null, 2)}</p>*/}
+                <pre>{JSON.stringify(track, null, 2)}</pre>
+                {/*<p>{JSON.stringify(artist, null, 2)}</p>*/}
                 {/*<pre>{JSON.stringify(artistTracks, null, 2)}</pre>*/}
 
             </div>
