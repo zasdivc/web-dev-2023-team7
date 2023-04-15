@@ -32,6 +32,7 @@ const getToken = async () =>{
 
 export const getTrack = async (trackId) => {
     await getToken();
+    console.log(`${SPOTIFY_API}/tracks/${trackId}`);
     const response = await axios({
         method: 'get',
         url: `${SPOTIFY_API}/tracks/${trackId}`,
@@ -72,4 +73,9 @@ export const getArtistTopTracks = async (artistId) => {
             Authorization: `Bearer ${spotify_token}`
         },});
     return response.data.tracks;
+}
+
+export const getTrackImage =  async(trackId) => {
+    const track = await getTrack(trackId);
+    return track.album.images[0].url;
 }

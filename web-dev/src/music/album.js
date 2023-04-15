@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import {getAlbum} from "./music-service";
+import {getAlbum, getTrackImage} from "./music-service";
+import TrackImageComponent from "../component/trackImageComponent";
 
 function AlbumDetailScreen() {
     const { id } = useParams();
@@ -50,6 +51,7 @@ function AlbumDetailScreen() {
                                 <td className="align-middle">{index + 1}</td>
                                 <td className="align-middle">
                                     <span className="size-20 ms-2">{albumTrack.name}</span>
+                                    {/*<span className="size-20 ms-2">{albumTrack.id}</span>*/}
                                 </td>
                                 <td className=" d-flex justify-content-center align-items-center">
                                     <audio className="float-start" controls src={albumTrack.preview_url}>
@@ -66,7 +68,7 @@ function AlbumDetailScreen() {
                     </table>
                 </div>
 
-                    <pre>{JSON.stringify(album.tracks, null, 2)}</pre>
+                    {/*<pre>{JSON.stringify(album, null, 2)}</pre>*/}
             </div>}
         </div>
 
