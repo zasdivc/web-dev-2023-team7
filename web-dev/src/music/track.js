@@ -72,7 +72,8 @@ function TrackDetailsScreen() {
                 </div>
 
                 <div>
-                    Hw
+                    <i className="bi bi-play-circle-fill text-primary size-60"></i>
+                    <i className="bi bi-heart size-40 ms-4 text-muted"></i>
                 </div>
                 <pre>{JSON.stringify(track, null, 2)}</pre>
                 {/*<p>{JSON.stringify(artist, null, 2)}</p>*/}
