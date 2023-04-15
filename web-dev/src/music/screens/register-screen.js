@@ -7,6 +7,8 @@ function RegisterScreen() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -17,7 +19,7 @@ function RegisterScreen() {
         }
 
         try {
-            await dispatch(registerThunk({ username, password }));
+            await dispatch(registerThunk({ username, password, firstName, lastName }));
             navigate("/login");
         } catch (e) {
             alert(e);
@@ -52,6 +54,24 @@ function RegisterScreen() {
                     type="password"
                     value={confirmPassword}
                     onChange={(event) => setConfirmPassword(event.target.value)}
+                />
+            </div>
+            <div>
+                <label>First Name</label>
+                <input
+                    className="form-control"
+                    type="firstName"
+                    value={firstName}
+                    onChange={(event) => setFirstName(event.target.value)}
+                />
+            </div>
+            <div>
+                <label>Last Name</label>
+                <input
+                    className="form-control"
+                    type="lastName"
+                    value={lastName}
+                    onChange={(event) => setLastName(event.target.value)}
                 />
             </div>
             <button onClick={handleRegister}>
