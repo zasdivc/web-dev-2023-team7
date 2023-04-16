@@ -9,19 +9,21 @@ const CommentItem = ({comment}) => {
     }
 
     return (
-        <li className="list-group-item">
+        <li className="list-group-item  pt-2 pb-2">
                     <img className="rounded-circle float-start me-5"
                          width="50px" height="50px"
                          src="/images/default.JPG"/>
 
                     <i className="bi bi-x-lg float-end"
                        onClick={() => deleteCommentHandler(comment._id)}></i>
-                    <span className="me-xl-2 fw-bold">{comment.userName}</span><i className="bi bi-patch-check-fill wd-color-blue"></i>
+                    <span className={`${comment.userType === "admin" ? "text-danger" : (comment.userType  === "premium" ? "text-primary" : "")}`}>
+                        <span className="fw-bold me-3">{comment.userName}</span><i className="bi bi-patch-check-fill"></i>
+                    </span>
                     <span className="text-muted"> {comment.time}</span>
                     <br/>
-                    <div>
+                    <div className={`${comment.userType === "admin" ? "text-danger" : (comment.userType  === "premium" ? "text-primary" : "")}`}>
                         {comment.comment}
-            </div>
+                    </div>
         </li>
     );
 };
