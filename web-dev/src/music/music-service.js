@@ -79,3 +79,37 @@ export const getTrackImage =  async(trackId) => {
     const track = await getTrack(trackId);
     return track.album.images[0].url;
 }
+
+export const getNewReleasedAlbums = async () => {
+    await getToken();
+    const response = await axios({
+        method: 'get',
+        url: `${SPOTIFY_API}/browse/new-releases?country=US&limit=10`,
+        headers: {
+            Authorization: `Bearer ${spotify_token}`
+        },});
+    return response.data.albums.items;
+}
+
+export const getTrackRecommendations = async () => {
+    await getToken();
+    const response = await axios({
+        method: 'get',
+        url: `${SPOTIFY_API}/recommendations?limit=10&market=US&seed_genres=classical`,
+        headers: {
+            Authorization: `Bearer ${spotify_token}`
+        },});
+
+    return response.data.tracks;
+}
+
+export const searchAlbumsAndTracks = async (query) => {
+    await getToken();
+    const response = await axios({
+        method: 'get',
+        url: `${SPOTIFY_API}/search?q=${query}&type=album,track`,
+        headers: {
+            Authorization: `Bearer ${spotify_token}`
+        },});
+    return response.data;
+}
