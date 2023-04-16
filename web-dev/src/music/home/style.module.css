@@ -1,0 +1,54 @@
+
+.wrapper {
+    width: 100vw;
+    height: 100vh;
+}
+
+.sidebar-menu {
+  font-size: 18px;
+}
+
+
+
+.siderbar {
+    flex-shrink: 0;
+    width: 14vw;
+    background: black;
+}
+.header {
+    height: 8vh;
+    background: #212121;
+}
+.content {
+    background: #3d3d3d;
+}
+.sideHeader {
+    height: 10vh;
+    padding-left: 20px;
+
+}
+.menu {
+    list-style: none;
+    color: #b4b2b2;
+}
+.menu > li {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    box-sizing: border-box;
+    padding-left: 30px;
+    margin-bottom: 13px;
+    cursor: pointer;
+}
+
+.menu > li.active{
+    color: white;
+}
+
+.menu span {
+
+}
+
+.menu i {
+    font-size: 25px;
+}
