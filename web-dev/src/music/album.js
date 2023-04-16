@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import {getAlbum, getTrackImage} from "./music-service";
 import TrackImageComponent from "../component/trackImageComponent";
 
@@ -41,8 +41,8 @@ function AlbumDetailScreen() {
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Title</th>
-                            <th scope="col">preview</th>
-                            <th scope="col">duration</th>
+                            <th scope="col">Preview</th>
+                            <th scope="col">Duration</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -50,7 +50,7 @@ function AlbumDetailScreen() {
                             <tr key={index}>
                                 <td className="align-middle">{index + 1}</td>
                                 <td className="align-middle">
-                                    <span className="size-20 ms-2">{albumTrack.name}</span>
+                                  <Link to={`/music/track/${albumTrack.id}`}>  <span className="size-20 ms-2">{albumTrack.name}</span> </Link>
                                     {/*<span className="size-20 ms-2">{albumTrack.id}</span>*/}
                                 </td>
                                 <td className=" d-flex align-items-center">
