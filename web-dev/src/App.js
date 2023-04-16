@@ -9,11 +9,13 @@ import RegisterScreen from "./music/screens/register-screen";
 import TrackDetailScreen from "./music/track";
 import AlbumDetailScreen from "./music/album";
 import TestScreen from "./music/test";
+import commentReducer from "./comment/comment-reducer";
 // import AdminScreen from "./screens/admin-screen";
 
 
 const store = configureStore({
-    reducer: {auth: authReducer}
+    reducer: {auth: authReducer,
+        comments: commentReducer}
 });
 function App() {
     const hello = "Hello World!";
