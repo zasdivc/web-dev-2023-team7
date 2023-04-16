@@ -123,7 +123,7 @@ function TrackDetailsScreen() {
                 </div>
                 {/*<pre>{JSON.stringify(track, null, 2)}</pre>*/}
                 {/*<p>{JSON.stringify(artist, null, 2)}</p>*/}
-                <pre>{JSON.stringify(artistTracks, null, 2)}</pre>
+                {/*<pre>{JSON.stringify(artistTracks, null, 2)}</pre>*/}
 
             </div>
             }
