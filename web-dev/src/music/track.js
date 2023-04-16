@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import {Link, useParams } from "react-router-dom";
 import {getArtist, getArtistTopTracks, getTrack} from "./music-service";
 
 function TrackDetailsScreen() {
@@ -39,7 +39,7 @@ function TrackDetailsScreen() {
     useEffect(() => {
         console.log("fetching track");
         fetchTrack();
-    }, []);
+    }, [id]);
 
     useEffect(() => {
         console.log("fetching artist and its tracks");
@@ -86,9 +86,9 @@ function TrackDetailsScreen() {
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Title</th>
-                            <th scope="col">release_year</th>
-                            <th scope="col">preview</th>
-                            <th scope="col">duration</th>
+                            <th scope="col">Album</th>
+                            <th scope="col">Preview</th>
+                            <th scope="col">Duration</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -96,10 +96,17 @@ function TrackDetailsScreen() {
                             <tr key={index}>
                                 <td className="align-middle">{index + 1}</td>
                                 <td className="align-middle">
+
                                     <img className="float-start" width="40px" height="40px" src={artistTrack.album.images[1].url}/>
-                                    <span className="size-20 ms-2">{artistTrack.name}</span>
+                                    <Link to={`/music/track/${artistTrack.id}`}>
+                                        <span className="size-20 ms-2">{artistTrack.name}</span>
+                                    </Link>
                                 </td>
-                                <td className="align-middle">{artistTrack.album.release_date.split('-')[0]}</td>
+                                <td className="align-middle">
+                                    <Link to={`/music/album/${artistTrack.album.id}`}>
+                                    {artistTrack.album.name}
+                                    </Link>
+                                </td>
                                 <td className=" d-flex  align-items-center">
                                     <audio className="float-start" controls src={artistTrack.preview_url}>
                                     </audio>
@@ -116,7 +123,7 @@ function TrackDetailsScreen() {
                 </div>
                 {/*<pre>{JSON.stringify(track, null, 2)}</pre>*/}
                 {/*<p>{JSON.stringify(artist, null, 2)}</p>*/}
-                {/*<pre>{JSON.stringify(artistTracks, null, 2)}</pre>*/}
+                <pre>{JSON.stringify(artistTracks, null, 2)}</pre>
 
             </div>
             }
