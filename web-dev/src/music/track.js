@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import {Link, useParams } from "react-router-dom";
 import {getArtist, getArtistTopTracks, getTrack} from "./music-service";
 import CommentList from "../comment/CommentList";
+import AddComment from "../comment/AddComment";
 
 function TrackDetailsScreen() {
     const { id } = useParams();
@@ -123,6 +124,7 @@ function TrackDetailsScreen() {
                     </table>
 
                     <h1>Comments</h1>
+                    <AddComment/>
                     <CommentList/>
                 </div>
                 {/*<pre>{JSON.stringify(track, null, 2)}</pre>*/}

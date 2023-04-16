@@ -1,23 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import comments from './comments.json';
 
-// const currentUser = {
-//     "userName": "NASA",
-//     "handle": "@nasa",
-//     "image": "nasa-logo.png",
-// };
-//
-// const templateTuit = {
-//     ...currentUser,
-//     "topic": "Space",
-//     "time": "2h",
-//     "liked": false,
-//     "replies": 0,
-//     "retuits": 0,
-//     "likes": 0,
-// }
-
-
+const currentUser = {
+    "userId": 234,
+    "userName": "Sophia",
+    "userType": "regular",
+};
 
 const commentSlice = createSlice({
     name: 'comments',
@@ -32,6 +20,7 @@ const commentSlice = createSlice({
         createComment(state, action) {
             state.unshift({
                 ...action.payload,
+                ...currentUser,
                 _id: (new Date()).getTime(),
             })
         },
