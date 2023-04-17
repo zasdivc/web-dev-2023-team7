@@ -75,15 +75,22 @@
         background-position: 0% 50%;
     }
 }
-.spotify-container::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle, #1db954 10%, transparent 40%);
-    background-size: 50px 50px;
-    animation: glowing 2s infinite;
-    z-index: -1;
+
+.spotify-input.readOnly {
+    background-color: #000000;
+    color: #676767;
+    cursor: not-allowed;
 }
+
+/*.spotify-container::before {*/
+/*    content: "";*/
+/*    position: absolute;*/
+/*    top: 0;*/
+/*    left: 0;*/
+/*    width: 100%;*/
+/*    height: 100%;*/
+/*    background: radial-gradient(circle, #1db954 10%, transparent 40%);*/
+/*    background-size: 50px 50px;*/
+/*    animation: glowing 2s infinite;*/
+/*    z-index: -1;*/
+/*}*/

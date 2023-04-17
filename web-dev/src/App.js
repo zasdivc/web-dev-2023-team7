@@ -4,7 +4,6 @@ import { Provider } from 'react-redux';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "../src/music/reducers/auth-reducer";
-import Navigation from "../src/music/components/nav/navigation";
 import RegisterScreen from "./music/screens/register-screen";
 import TrackDetailScreen from "./music/track";
 import AlbumDetailScreen from "./music/album";
@@ -26,7 +25,6 @@ function App() {
     return (
         <Provider store={store}>
             <BrowserRouter>
-                <Navigation />
                 <Routes>
                     <Route path="/login" element={<LoginScreen />} />
                     <Route path="/profile" element={<ProfileScreen />} />
