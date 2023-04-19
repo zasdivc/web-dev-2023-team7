@@ -75,13 +75,13 @@ function ProfileScreen() {
                     </div>
                 </div>
             )}
-            <button className="spotify-button"
+            {currentUser && (<button className="spotify-button"
                     onClick={() => {
                         dispatch(logoutThunk());
                         navigate("/login");
                     }}>
                 Logout
-            </button>
+            </button>)}
             <button className="spotify-button" onClick={save}>Save</button>
             <button className="spotify-button" onClick={() => navigate("/")}>Home</button>
         </div>
