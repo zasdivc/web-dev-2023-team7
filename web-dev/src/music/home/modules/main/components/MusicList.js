@@ -1,13 +1,13 @@
 import style from "./style.module.css";
+import { useNavigate } from "react-router";
 
 export const MusicList = ({ title, data }) => {
+  const navigate = useNavigate();
+
   return (
     <div className={"w-100"}>
       <div className={"d-flex justify-content-between"}>
         <h3 className={"text-white"}>{title}</h3>
-        <span className={"text-secondary"} role={"button"}>
-          View All
-        </span>
       </div>
       <div className={"p-2 row justify-content-evenly"}>
         {data.map((item, index) => {
@@ -20,6 +20,10 @@ export const MusicList = ({ title, data }) => {
                     "card me-2 p-0 col-lg-2 col-md-2 col-sm-3 flex-shrink-0 bg-dark " +
                     style.music
                   }
+                  onClick={() => {
+                    navigate(`/music/album/6aBVGuOUEuX18rHxyDWbti`);
+                    // console.log("点击事件", item);
+                  }}
                 >
                   <div className={"card-body p-2"}>
                     <img
@@ -43,6 +47,9 @@ export const MusicList = ({ title, data }) => {
                     "card me-2 p-0 col-lg-2 col-md-2 col-sm-3 flex-shrink-0 bg-dark " +
                     style.music
                   }
+                  onClick={() => {
+                    navigate(`/music/track/6odrHMSLjP3aOXC4ipKUC6`);
+                  }}
                 >
                   <div className={"card-body p-2"}>
                     <img

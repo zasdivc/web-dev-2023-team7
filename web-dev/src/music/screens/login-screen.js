@@ -11,16 +11,11 @@ function LoginScreen() {
     const dispatch = useDispatch();
     const handleLogin = async () => {
         try {
-            let response = await dispatch(loginThunk({ username, password }));
-            if (response.type && response.type == "users/login/rejected") {
-                alert("wrong information");
-                navigate("/login");
-            } else {
-                navigate("/profile");
-            }
-          } catch (e) {
-            console.log(e);
-          }
+            await dispatch(loginThunk({ username, password }));
+            navigate("/profile");
+        } catch (e) {
+            alert(e);
+        }
     };
     return (
         <div className="spotify-container">

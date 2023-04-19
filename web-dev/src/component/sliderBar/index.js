@@ -6,7 +6,6 @@
 import "./style.module.css";
 import style from "./style.module.css";
 import HKY from "../../images/HKY.png";
-import { useSelector } from "react-redux";
 
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -14,17 +13,16 @@ const Aside = (props) => {
   const navigate = useNavigate();
   const location = useLocation();
   const pathname = location.pathname;
-  const { currentUser } = useSelector((state) => state.auth);
 
   //check if user is logged in
   const isLoggedIn = () => {
-      return localStorage.getItem("isLoggedIn") !== null;
-  }
+    return localStorage.getItem("isLoggedIn") !== null;
+  };
 
-    //redirect to profile page if user is logged in
-   if (isLoggedIn()) {
-       navigate("/profile");
-   }
+  //redirect to profile page if user is logged in
+  if (isLoggedIn()) {
+    navigate("/profile");
+  }
 
   return (
     <div className={props.className + " " + style.siderbar}>
@@ -95,26 +93,30 @@ const Aside = (props) => {
           className=" bi bi-box-arrow-in-left"
           style={{ fontSize: "24px" }}
         ></i>
-        <button className={"btn btn-link text-white text-decoration-none "}
-                onClick={() => navigate("/login")}>
+        <button
+          className={"btn btn-link text-white text-decoration-none "}
+          onClick={() => navigate("/login")}
+        >
           <span className={style["react-width-1400"]}>Login</span>
         </button>
       </p>
 
-      
-      <p className={"text-white d-flex ps-5 align-items-center"}>
-        <i className=" bi bi-people-fill" style={{ fontSize: "24px" }}></i>
-        <button className={"btn btn-link text-white text-decoration-none "}
-                onClick={() => navigate("/register")}>
+      <p className={"text-white d-flex ps-5 align-items-center "}>
+        <i className="bi bi-file-diff" style={{ fontSize: "24px" }}></i>
+        <button
+          className={"btn btn-link text-white text-decoration-none "}
+          onClick={() => navigate("/register")}
+        >
           <span className={style["react-width-1400"]}>Register</span>
         </button>
       </p>
-      
 
       <p className={"text-white d-flex ps-5 align-items-center"}>
         <i className=" bi bi-people-fill" style={{ fontSize: "24px" }}></i>
-        <button className={"btn btn-link text-white text-decoration-none "}
-                onClick={() => navigate("/profile")}>
+        <button
+          className={"btn btn-link text-white text-decoration-none "}
+          onClick={() => navigate("/profile")}
+        >
           <span className={style["react-width-1400"]}>Profile</span>
         </button>
       </p>

@@ -62,6 +62,7 @@ export const Search = () => {
             onChange={(e) => {
               setSearchStr(e.target.value);
             }}
+            style={{ border: "none" }}
           />
           {searchStr && (
             <img
@@ -139,7 +140,7 @@ export const Search = () => {
           </>
         )}
         {tracksList.length < 1 && albumsList.length < 1 && (
-          <img src={require("./dark-theme.png")} className="img-empty" />
+          <img src={require("./jay.jpeg")} className="img-empty" />
         )}
       </div>
     </div>
