@@ -1,3 +1,4 @@
+import {useSelector} from "react-redux";
 import "./track.css";
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
@@ -5,11 +6,14 @@ import { getArtist, getArtistTopTracks, getTrack } from "./music-service";
 import CommentList from "../comment/CommentList";
 import AddComment from "../comment/AddComment";
 
+
 function TrackDetailsScreen() {
   const { id } = useParams();
   const [track, setTrack] = useState({});
   const [artist, setArtist] = useState({});
   const [artistTracks, setArtistTracks] = useState([]);
+  const { currentUser } = useSelector((state) => state.auth);
+  console.log("current user" + currentUser);
   const fetchTrack = async () => {
     const response = await getTrack(id);
     console.log("get track response");
@@ -21,10 +25,10 @@ function TrackDetailsScreen() {
     if (track.album === undefined) {
       return;
     }
-    console.log("fetching artist");
+    // console.log("fetching artist");
     const response = await getArtist(track.album.artists[0].id);
-    console.log("get artist response");
-    console.log(JSON.stringify(response, null, 2));
+    // console.log("get artist response");
+    // console.log(JSON.stringify(response, null, 2));
     setArtist(response);
   };
 
@@ -40,18 +44,18 @@ function TrackDetailsScreen() {
   };
 
   useEffect(() => {
-    console.log("fetching track");
+    // console.log("fetching track");
     fetchTrack();
   }, [id]);
 
   useEffect(() => {
-    console.log("fetching artist and its tracks");
+    // console.log("fetching artist and its tracks");
     fetchArtist();
     fetchArtistTracks();
   }, [track]);
 
-  console.log("rendering track");
-  console.log(JSON.stringify(track, null, 2));
+  // console.log("rendering track");
+  // console.log(JSON.stringify(track, null, 2));
   return (
     <div className="m-3 track">
       {track.album !== undefined && (

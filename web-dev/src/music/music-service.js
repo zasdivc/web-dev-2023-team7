@@ -20,7 +20,7 @@ const getToken = async () =>{
                 data: `grant_type=client_credentials&client_id=${clientId}&client_secret=${clientSecret}`
             });
 
-            console.log(response.data.access_token);
+            // console.log(response.data.access_token);
             spotify_token = response.data.access_token;
             token_timestamp = Date.now();
             return spotify_token;
