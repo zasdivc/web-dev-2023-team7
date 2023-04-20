@@ -6,6 +6,7 @@
 import "./style.module.css";
 import style from "./style.module.css";
 import HKY from "../../images/HKY.png";
+import { useSelector } from "react-redux";
 
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -13,6 +14,7 @@ const Aside = (props) => {
   const navigate = useNavigate();
   const location = useLocation();
   const pathname = location.pathname;
+  const { currentUser } = useSelector((state) => state.auth);
 
   //check if user is logged in
   const isLoggedIn = () => {
@@ -101,8 +103,8 @@ const Aside = (props) => {
         </button>
       </p>
 
-      <p className={"text-white d-flex ps-5 align-items-center "}>
-        <i className="bi bi-file-diff" style={{ fontSize: "24px" }}></i>
+      <p className={"text-white d-flex ps-5 align-items-center"}>
+        <i className=" bi bi-people-fill" style={{ fontSize: "24px" }}></i>
         <button
           className={"btn btn-link text-white text-decoration-none "}
           onClick={() => navigate("/register")}

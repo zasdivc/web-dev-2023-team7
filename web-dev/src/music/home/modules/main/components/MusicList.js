@@ -4,6 +4,8 @@ import { useNavigate } from "react-router";
 export const MusicList = ({ title, data }) => {
   const navigate = useNavigate();
 
+  console.log("data", data);
+
   return (
     <div className={"w-100"}>
       <div className={"d-flex justify-content-between"}>
@@ -21,8 +23,7 @@ export const MusicList = ({ title, data }) => {
                     style.music
                   }
                   onClick={() => {
-                    navigate(`/music/album/6aBVGuOUEuX18rHxyDWbti`);
-                    // console.log("点击事件", item);
+                    navigate(`/music/album/${item.id}`);
                   }}
                 >
                   <div className={"card-body p-2"}>
@@ -48,7 +49,7 @@ export const MusicList = ({ title, data }) => {
                     style.music
                   }
                   onClick={() => {
-                    navigate(`/music/track/6odrHMSLjP3aOXC4ipKUC6`);
+                    navigate(`/music/track/${item.id}`);
                   }}
                 >
                   <div className={"card-body p-2"}>

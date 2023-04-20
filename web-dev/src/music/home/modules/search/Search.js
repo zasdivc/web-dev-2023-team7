@@ -1,11 +1,15 @@
 import "./index.css";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router";
+
 import { searchAlbumsAndTracks } from "../../../music-service";
 
 export const Search = () => {
   const [searchStr, setSearchStr] = useState("");
   const [tracksList, setTracksList] = useState([]);
   const [albumsList, setAlbumsList] = useState([]);
+
+  const navigate = useNavigate();
 
   const debounce = (func, wait = 500) => {
     let timeout;
@@ -88,6 +92,9 @@ export const Search = () => {
                   className={
                     "card me-2 p-0 col-lg-2 col-md-2 col-sm-3 flex-shrink-0 bg-dark mb-5 music-item"
                   }
+                  onClick={() => {
+                    navigate(`/music/track/${item.id}`);
+                  }}
                 >
                   <div className={"card-body p-2 "}>
                     <img
@@ -120,6 +127,9 @@ export const Search = () => {
                   className={
                     "card me-2 p-0 col-lg-2 col-md-2 col-sm-3 flex-shrink-0 bg-dark mb-5 music-item"
                   }
+                  onClick={() => {
+                    navigate(`/music/album/${item.id}`);
+                  }}
                 >
                   <div className={"card-body p-2 "}>
                     <img
