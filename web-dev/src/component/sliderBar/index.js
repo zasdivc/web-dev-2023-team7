@@ -90,7 +90,11 @@ const Aside = (props) => {
         </li>
       </ul>
 
-      <p className={"text-white d-flex ps-5 align-items-center mt-auto"}>
+      <p
+        className={
+          "text-white d-flex align-items-center mt-auto " + style["pl-30"]
+        }
+      >
         <i
           className=" bi bi-box-arrow-in-left"
           style={{ fontSize: "24px" }}
@@ -103,7 +107,7 @@ const Aside = (props) => {
         </button>
       </p>
 
-      <p className={"text-white d-flex ps-5 align-items-center"}>
+      <p className={"text-white d-flex align-items-center " + style["pl-30"]}>
         <i className=" bi bi-people-fill" style={{ fontSize: "24px" }}></i>
         <button
           className={"btn btn-link text-white text-decoration-none "}
@@ -113,7 +117,7 @@ const Aside = (props) => {
         </button>
       </p>
 
-      <p className={"text-white d-flex ps-5 align-items-center"}>
+      <p className={"text-white d-flex align-items-center  " + style["pl-30"]}>
         <i className=" bi bi-people-fill" style={{ fontSize: "24px" }}></i>
         <button
           className={"btn btn-link text-white text-decoration-none "}
