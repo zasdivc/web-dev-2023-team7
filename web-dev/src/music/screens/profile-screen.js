@@ -35,6 +35,10 @@ function ProfileScreen() {
                         <input className="spotify-input readOnly" type="text" readOnly value={profile.password} />
                     </div>
                     <div className="spotify-input-group">
+                        <label className="spotify-input-label">Role</label>
+                        <input className="spotify-input readOnly" type="text" readOnly value={profile.role} />
+                    </div>
+                    <div className="spotify-input-group">
                         <label className="spotify-input-label">Email</label>
                         <input className="spotify-input" type="email"
                                value={profile.email}
