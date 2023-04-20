@@ -33,13 +33,14 @@ export const updateUser = async (user) => {
 };
 
 
-export const register = async ({ username, password, firstName, lastName, email }) => {
+export const register = async ({ username, password, firstName, lastName, email, role }) => {
     const response = await api.post(`${USERS_URL}/register`, {
         username,
         password,
         firstName,
         lastName,
         email,
+        role,
     });
     const user = response.data;
     return user;

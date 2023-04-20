@@ -11,6 +11,7 @@ function RegisterScreen() {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
+    const [role, setRole] = useState("User");
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -21,7 +22,7 @@ function RegisterScreen() {
         }
 
         try {
-            await dispatch(registerThunk({ username, password, firstName, lastName, email }));
+            await dispatch(registerThunk({ username, password, firstName, lastName, email, role }));
             navigate("/login");
         } catch (e) {
             alert(e);
@@ -85,6 +86,42 @@ function RegisterScreen() {
                     onChange={(event) => setEmail(event.target.value)}
                 />
             </div>
+            <div className="spotify-input-group">
+        <label className="spotify-input-label">Role</label>
+        <div>
+          <input
+            type="radio"
+            id="user"
+            name="role"
+            value="user"
+            checked={role === "user"}
+            onChange={(event) => setRole(event.target.value)}
+          />
+          <label htmlFor="user">User</label>
+        </div>
+        <div>
+          <input
+            type="radio"
+            id="admin"
+            name="role"
+            value="admin"
+            checked={role === "admin"}
+            onChange={(event) => setRole(event.target.value)}
+          />
+          <label htmlFor="admin">Admin</label>
+        </div>
+        <div>
+          <input
+            type="radio"
+            id="moderator"
+            name="role"
+            value="moderator"
+            checked={role === "moderator"}
+            onChange={(event) => setRole(event.target.value)}
+          />
+          <label htmlFor="moderator">Moderator</label>
+        </div>
+      </div>
             <button className="spotify-button" onClick={handleRegister}>
                 Register
             </button>
