@@ -69,10 +69,7 @@ function TrackDetailsScreen() {
     const newLike = await createLike(createdLike);
      setLike([...like, newLike]);
   }
-  //
-  // useEffect(() => {
-  //   fetchLike();
-  // },[id]);
+
 
   // useEffect(() => {
   //   fetchLike();
