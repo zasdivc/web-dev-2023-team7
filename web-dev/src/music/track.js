@@ -3,7 +3,7 @@ import "./track.css";
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { getArtist, getArtistTopTracks, getTrack } from "./music-service";
-import {findLikesByTrackIdAndUserId} from "../likes/likes-service";
+import {createLike, deleteLike, findLikesByTrackIdAndUserId} from "../likes/likes-service";
 import {createComment, deleteComment, findCommentsByTrackId} from "../comment/comments-service";
 
 function TrackDetailsScreen() {
@@ -17,6 +17,7 @@ function TrackDetailsScreen() {
   console.log("current user" + JSON.stringify(currentUser, null, 2));
   let [comment, setComment] = useState('');
   const fetchTrack = async () => {
+    console.log("fetching track");
     const response = await getTrack(id);
     console.log("get track response");
     console.log(JSON.stringify(response, null, 2));
@@ -50,14 +51,22 @@ function TrackDetailsScreen() {
     console.log("like length" + response.length);
   }
 
-  const deleteLike = async () => {
+  const diskLike = async () => {
     console.log("deleting like");
     await deleteLike(like[0]._id);
+    setLike([]);
   }
 
-  const createLike = async () => {
-    // console.log("creating like");
-    await createLike({trackId: id, userId: currentUser._id});
+  const clickLike = async () => {
+    console.log("creating like");
+
+    const createdLike = {
+      user: currentUser._id,
+      trackId: id,
+      trackName: track.name,
+    };
+    const newLike = await createLike(createdLike);
+     setLike([...like, newLike]);
   }
   //
   // useEffect(() => {
@@ -70,6 +79,7 @@ function TrackDetailsScreen() {
 
 
   const fetchArtist = async () => {
+    console.log("fetching artist");
     if (track.album === undefined) {
       return;
     }
@@ -78,6 +88,7 @@ function TrackDetailsScreen() {
   };
 
   const fetchArtistTracks = async () => {
+    console.log("fetching artist tracks");
     if (track.album === undefined) {
       return;
     }
@@ -98,6 +109,7 @@ function TrackDetailsScreen() {
   useEffect(() => {
     fetchTrack();
     fetchCommentsByTrackId();
+    fetchLike();
   }, [id]);
 
   useEffect(() => {
@@ -147,8 +159,7 @@ function TrackDetailsScreen() {
 
           <div className="d-flex  align-items-center mt-3">
             <audio controls src={track.preview_url}></audio>
-            {like.length > 0 ? <i className="bi bi-heart-fill size-40 ms-4 text-danger" onClick={() => deleteLike()}> </i> : <i className="bi bi-heart size-40 ms-4 text-muted" onClick={() => createLike()}> </i>}
-          </div>
+            {like.length > 0 ? <i className="bi bi-heart-fill size-40 ms-4 text-danger" onClick={() => diskLike()}> </i> : <i className="bi bi-heart size-40 ms-4 text-muted" onClick={() => clickLike()}> </i>}          </div>
 
           <h2 className="mt-5 mb-4">
             Popular tracks by {track.album.artists[0].name}
