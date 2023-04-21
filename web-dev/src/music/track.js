@@ -3,9 +3,8 @@ import "./track.css";
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { getArtist, getArtistTopTracks, getTrack } from "./music-service";
-import CommentList from "../comment/CommentList";
-import AddComment from "../comment/AddComment";
-
+import {findLikesByTrackIdAndUserId} from "../likes/likes-service";
+import {createComment, deleteComment, findCommentsByTrackId} from "../comment/comments-service";
 
 function TrackDetailsScreen() {
   const { id } = useParams();
@@ -13,7 +12,10 @@ function TrackDetailsScreen() {
   const [artist, setArtist] = useState({});
   const [artistTracks, setArtistTracks] = useState([]);
   const { currentUser } = useSelector((state) => state.auth);
+  const [like, setLike] = useState([]);
+  const [commentsArray, setCommentsArray] = useState([]);
   console.log("current user" + JSON.stringify(currentUser, null, 2));
+  let [comment, setComment] = useState('');
   const fetchTrack = async () => {
     const response = await getTrack(id);
     console.log("get track response");
@@ -21,16 +23,57 @@ function TrackDetailsScreen() {
     setTrack(response);
   };
 
+  const postComment = async () => {
+    console.log("post comment");
+    const createdComment = {
+      user: currentUser._id,
+      username: currentUser.username,
+      role: currentUser.role,
+      trackId: id,
+      trackName: track.name,
+      comment: comment
+    };
+    console.log(createdComment);
+    const newComment = await createComment(createdComment);
+    setCommentsArray([...commentsArray, newComment]);
+  };
+
+  const deleteCommentHandler = async (id) => {
+    await deleteComment(id);
+    setCommentsArray(commentsArray.filter((comment) => comment._id !== id));
+  }
+  const fetchLike = async () => {
+    console.log("fetching like");
+    const response = await findLikesByTrackIdAndUserId(id, currentUser._id);
+    console.log("get like response" + JSON.stringify(response, null, 2));
+    setLike(response);
+    console.log("like length" + response.length);
+  }
+
+  const deleteLike = async () => {
+    console.log("deleting like");
+    await deleteLike(like[0]._id);
+  }
+
+  const createLike = async () => {
+    // console.log("creating like");
+    await createLike({trackId: id, userId: currentUser._id});
+  }
+  //
+  // useEffect(() => {
+  //   fetchLike();
+  // },[id]);
+
+  // useEffect(() => {
+  //   fetchLike();
+  // },[like]);
 
 
   const fetchArtist = async () => {
     if (track.album === undefined) {
       return;
     }
-    // console.log("fetching artist");
     const response = await getArtist(track.album.artists[0].id);
-    // console.log("get artist response");
-    // console.log(JSON.stringify(response, null, 2));
     setArtist(response);
   };
 
@@ -45,19 +88,23 @@ function TrackDetailsScreen() {
     setArtistTracks(response);
   };
 
+  const fetchCommentsByTrackId = async () => {
+    console.log("fetch comments by track id");
+    const comments = await findCommentsByTrackId(id);
+    console.log(comments);
+    setCommentsArray(comments);
+  }
+
   useEffect(() => {
-    // console.log("fetching track");
     fetchTrack();
+    fetchCommentsByTrackId();
   }, [id]);
 
   useEffect(() => {
-    // console.log("fetching artist and its tracks");
     fetchArtist();
     fetchArtistTracks();
   }, [track]);
 
-  // console.log("rendering track");
-  // console.log(JSON.stringify(track, null, 2));
   return (
     <div className="m-3 track">
       {track.album !== undefined && (
@@ -100,7 +147,7 @@ function TrackDetailsScreen() {
 
           <div className="d-flex  align-items-center mt-3">
             <audio controls src={track.preview_url}></audio>
-            <i className="bi bi-heart size-40 ms-4 text-muted"></i>
+            {like.length > 0 ? <i className="bi bi-heart-fill size-40 ms-4 text-danger" onClick={() => deleteLike()}> </i> : <i className="bi bi-heart size-40 ms-4 text-muted" onClick={() => createLike()}> </i>}
           </div>
 
           <h2 className="mt-5 mb-4">
@@ -168,12 +215,52 @@ function TrackDetailsScreen() {
             </table>
 
             <h1>Comments</h1>
-            <AddComment trackId={id} trackName={track.name}/>
-            <CommentList trackId={id}/>
+
+            <div className="row">
+              <div className="col-auto">
+                <img className="rounded-circle" src="/images/default.JPG" width={50}/>
+              </div>
+              <div className="col-10">
+                <textarea value={comment} placeholder="Type your comment about this track!"
+                          className="form-control"
+                          onChange={(event) => setComment(event.target.value)}>
+                </textarea>
+                <div>
+                  <button className="rounded-pill btn btn-primary float-end mt-2 ps-3 pe-3 fw-bold"
+                          onClick={postComment}>
+                    Comment
+                  </button>
+                </div>
+              </div>
+              <div className="col-12"><hr/></div>
+            </div>
+
+            <div>
+              <ul className="list-group">
+                {
+                  commentsArray.map(comment =>
+                      <li className="list-group-item  pt-2 pb-2">
+                        <img className="rounded-circle float-start me-5"
+                             width="50px" height="50px"
+                             src="/images/default.JPG"/>
+
+                        {currentUser.role === 'user'&&<i className="bi bi-x-lg float-end"
+                                                          onClick={() => deleteCommentHandler(comment._id)}></i>}
+                        <span className={`${comment.role === "admin" ? "text-danger" : (comment.role  === "moderator" ? "text-primary" : "")}`}>
+                        <span className="fw-bold me-3">{comment.username}</span><i className="bi bi-patch-check-fill"></i>
+                    </span>
+                        <span className="text-muted"> {comment.createdAt.split("T")[0]} {comment.createdAt.split("T")[1].split(".")[0]}</span>
+                        <br/>
+                        <div className={`${comment.role === "admin" ? "text-danger" : (comment.role  === "premium" ? "text-primary" : "")}`}>
+                          {comment.comment}
+                        </div>
+                      </li>
+                  )
+                }
+              </ul>
+            </div>
+
           </div>
-          {/*<pre>{JSON.stringify(track, null, 2)}</pre>*/}
-          {/*<p>{JSON.stringify(artist, null, 2)}</p>*/}
-          {/*<pre>{JSON.stringify(artistTracks, null, 2)}</pre>*/}
         </div>
       )}
     </div>

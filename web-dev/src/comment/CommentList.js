@@ -9,9 +9,9 @@ const CommentList = ({trackId}) => {
         fetchCommentsByTrackId();
     }, [trackId]);
 
-    useEffect(() => {
-        fetchCommentsByTrackId();
-    }, [commentsArray]);
+    // useEffect(() => {
+    //     fetchCommentsByTrackId();
+    // }, [commentsArray]);
 
 
     const fetchCommentsByTrackId = async () => {
