@@ -1,5 +1,6 @@
 import {useSelector} from "react-redux";
 import "./track.css";
+import {useSelector} from "react-redux";
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { getArtist, getArtistTopTracks, getTrack } from "./music-service";
@@ -20,6 +21,10 @@ function TrackDetailsScreen() {
     console.log(JSON.stringify(response, null, 2));
     setTrack(response);
   };
+
+  const currentUser = useSelector((state) => state.auth.currentUser);
+  console.log(currentUser);
+
 
   const fetchArtist = async () => {
     if (track.album === undefined) {

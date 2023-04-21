@@ -1,8 +1,9 @@
 import style from "./style.module.css";
 import HKY from "../../images/HKY.png";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import Aside from "../../component/sliderBar/index";
+import { useSelector } from "react-redux";
 
 import Adverise from "../../component/advertise";
 
@@ -11,13 +12,22 @@ export const Home = () => {
   const pathname = location.pathname;
   const navigate = useNavigate();
 
-  const [showAd, setShowAd] = useState(true);
+  const [showAd, setShowAd] = useState(false);
 
+  const currentUser = useSelector((state) => state.auth.currentUser);
+
+  useEffect(() => {
+    console.log("currentUser", currentUser);
+    // show AD
+    let role = currentUser?.role;
+    if (role && role === "user") {
+      setShowAd(true);
+    }
+  }, []);
   return (
     <div className={"p-0 container-fluid " + style.wrapper}>
       {
-        /* 广告组件 */
-
+        /* ad component */
         showAd && <Adverise close={() => setShowAd(false)} />
       }
       <div className={"w-100 h-100 row"}>
