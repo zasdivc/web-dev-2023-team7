@@ -5,6 +5,7 @@ import { Link, useParams } from "react-router-dom";
 import { getArtist, getArtistTopTracks, getTrack } from "./music-service";
 import {createLike, deleteLike, findLikesByTrackIdAndUserId} from "../likes/likes-service";
 import {createComment, deleteComment, findCommentsByTrackId} from "../comment/comments-service";
+import Tracklist from "./components/PopularTracks/tracklist";
 
 function TrackDetailsScreen() {
   const { id } = useParams();
@@ -164,113 +165,51 @@ function TrackDetailsScreen() {
           <h2 className="mt-5 mb-4">
             Popular tracks by {track.album.artists[0].name}
           </h2>
-          <div className="table-responsive">
-            <table className="table">
-              <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Title</th>
-                  <th scope="col">Album</th>
-                  <th scope="col">Preview</th>
-                  <th scope="col">Duration</th>
-                </tr>
-              </thead>
-              <tbody>
-                {artistTracks.map((artistTrack, index) => (
-                  <tr key={index}>
-                    <td className="align-middle">{index + 1}</td>
-                    <td className="align-middle">
-                      <img
-                        className="float-start"
-                        width="40px"
-                        height="40px"
-                        src={artistTrack.album.images[1].url}
-                      />
-                      <Link
-                        style={{ textDecoration: "none" }}
-                        to={`/music/track/${artistTrack.id}`}
-                      >
-                        <span
-                          style={{ color: "#fff" }}
-                          className="size-20 ms-2"
-                        >
-                          {artistTrack.name}
-                        </span>
-                      </Link>
-                    </td>
-                    <td className="align-middle">
-                      <Link
-                        style={{ textDecoration: "none" }}
-                        to={`/music/album/${artistTrack.album.id}`}
-                      >
-                        <span style={{ color: "#fff" }}>
-                          {artistTrack.album.name}
-                        </span>
-                      </Link>
-                    </td>
-                    <td className=" d-flex  align-items-center">
-                      <audio
-                        className="float-start"
-                        controls
-                        src={artistTrack.preview_url}
-                      ></audio>
-                      <i className="bi bi-heart size-20 ms-4 text-muted"></i>
-                    </td>
-                    <td className="align-middle">
-                      {Math.floor(artistTrack.duration_ms / 60000)}:
-                      {Math.floor((artistTrack.duration_ms % 60000) / 1000)}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          <Tracklist artistTracks={artistTracks} />
+          <h1>Comments</h1>
 
-            <h1>Comments</h1>
-
-            <div className="row">
-              <div className="col-auto">
-                <img className="rounded-circle" src="/images/default.JPG" width={50}/>
-              </div>
-              <div className="col-10">
+          <div className="row">
+            <div className="col-auto">
+              <img className="rounded-circle" src="/images/default.JPG" width={50}/>
+            </div>
+            <div className="col-10">
                 <textarea value={comment} placeholder="Type your comment about this track!"
                           className="form-control"
                           onChange={(event) => setComment(event.target.value)}>
                 </textarea>
-                <div>
-                  <button className="rounded-pill btn btn-primary float-end mt-2 ps-3 pe-3 fw-bold"
-                          onClick={postComment}>
-                    Comment
-                  </button>
-                </div>
+              <div>
+                <button className="rounded-pill btn btn-primary float-end mt-2 ps-3 pe-3 fw-bold"
+                        onClick={postComment}>
+                  Comment
+                </button>
               </div>
-              <div className="col-12"><hr/></div>
             </div>
+            <div className="col-12"><hr/></div>
+          </div>
 
-            <div>
-              <ul className="list-group">
-                {
-                  commentsArray.map(comment =>
-                      <li className="list-group-item  pt-2 pb-2">
-                        <img className="rounded-circle float-start me-5"
-                             width="50px" height="50px"
-                             src="/images/default.JPG"/>
+          <div>
+            <ul className="list-group">
+              {
+                commentsArray.map(comment =>
+                    <li className="list-group-item  pt-2 pb-2">
+                      <img className="rounded-circle float-start me-5"
+                           width="50px" height="50px"
+                           src="/images/default.JPG"/>
 
-                        {currentUser.role === 'user'&&<i className="bi bi-x-lg float-end"
-                                                          onClick={() => deleteCommentHandler(comment._id)}></i>}
-                        <span className={`${comment.role === "admin" ? "text-danger" : (comment.role  === "moderator" ? "text-primary" : "")}`}>
+                      {currentUser.role === 'admin'&&<i className="bi bi-x-lg float-end"
+                                                       onClick={() => deleteCommentHandler(comment._id)}></i>}
+                      <span className={`${comment.role === "admin" ? "text-danger" : (comment.role  === "moderator" ? "text-primary" : "")}`}>
                         <span className="fw-bold me-3">{comment.username}</span><i className="bi bi-patch-check-fill"></i>
                     </span>
-                        <span className="text-muted"> {comment.createdAt.split("T")[0]} {comment.createdAt.split("T")[1].split(".")[0]}</span>
-                        <br/>
-                        <div className={`${comment.role === "admin" ? "text-danger" : (comment.role  === "premium" ? "text-primary" : "")}`}>
-                          {comment.comment}
-                        </div>
-                      </li>
-                  )
-                }
-              </ul>
-            </div>
-
+                      <span className="text-muted"> {comment.createdAt.split("T")[0]} {comment.createdAt.split("T")[1].split(".")[0]}</span>
+                      <br/>
+                      <div className={`${comment.role === "admin" ? "text-danger" : (comment.role  === "premium" ? "text-primary" : "")}`}>
+                        {comment.comment}
+                      </div>
+                    </li>
+                )
+              }
+            </ul>
           </div>
         </div>
       )}
