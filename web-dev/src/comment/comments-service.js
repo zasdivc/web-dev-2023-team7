@@ -8,7 +8,7 @@ export const findAllComments = async () => {
     return comments;
 }
 export const findCommentsByTrackId = async (trackId) => {
-    const response = await axios.get(`${COMMENTS_API}/${trackId}`);
+    const response = await axios.get(`${COMMENTS_API}/track/${trackId}`);
     const comments = response.data;
     return comments;
 }

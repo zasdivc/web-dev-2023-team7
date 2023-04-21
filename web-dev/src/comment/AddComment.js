@@ -1,16 +1,25 @@
+import {useSelector} from "react-redux";
 import React, {useState} from "react";
-import {useDispatch} from "react-redux";
-import {createComment} from "./comment-reducer";
+import {createComment} from "./comments-service";
 
-const AddComment = () => {
+
+const AddComment = ({trackId, trackName}) => {
     let [comment, setComment] = useState('');
-    const dispatch = useDispatch();
-    const commentClickHandler = () => {
-        const newComment = {
+    const { currentUser } = useSelector((state) => state.auth);
+
+    const postComment = async () => {
+        console.log("post comment");
+        const createdComment = {
+            user: currentUser._id,
+            username: currentUser.username,
+            role: currentUser.role,
+            trackId: trackId,
+            trackName: trackName,
             comment: comment
-        }
-        dispatch(createComment(newComment));
-    }
+        };
+        console.log(createdComment);
+        const newComment = await createComment(createdComment);
+    };
 
     return (
         <div className="row">
@@ -24,7 +33,7 @@ const AddComment = () => {
                 </textarea>
                 <div>
                     <button className="rounded-pill btn btn-primary float-end mt-2 ps-3 pe-3 fw-bold"
-                            onClick={commentClickHandler}>
+                            onClick={postComment}>
                         Comment
                     </button>
                 </div>

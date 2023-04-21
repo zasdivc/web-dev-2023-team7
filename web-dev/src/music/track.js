@@ -13,7 +13,7 @@ function TrackDetailsScreen() {
   const [artist, setArtist] = useState({});
   const [artistTracks, setArtistTracks] = useState([]);
   const { currentUser } = useSelector((state) => state.auth);
-  console.log("current user" + currentUser);
+  console.log("current user" + JSON.stringify(currentUser, null, 2));
   const fetchTrack = async () => {
     const response = await getTrack(id);
     console.log("get track response");
@@ -166,8 +166,8 @@ function TrackDetailsScreen() {
             </table>
 
             <h1>Comments</h1>
-            <AddComment />
-            <CommentList />
+            <AddComment trackId={id} trackName={track.name}/>
+            <CommentList trackId={id}/>
           </div>
           {/*<pre>{JSON.stringify(track, null, 2)}</pre>*/}
           {/*<p>{JSON.stringify(artist, null, 2)}</p>*/}
