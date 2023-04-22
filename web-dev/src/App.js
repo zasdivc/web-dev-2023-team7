@@ -30,6 +30,7 @@ function App() {
         <Routes>
           <Route path="/login" element={<LoginScreen />} />
           <Route path="/profile" element={<ProfileScreen />} />
+          <Route path="/profile/:uid" element={<ProfileScreen />} />
           <Route path="/register" element={<RegisterScreen />} />
           {/* <Route path="/music/track/:id" element={<TrackDetailScreen />} /> */}
           {/* <Route path="/music/album/:id" element={<AlbumDetailScreen />} /> */}

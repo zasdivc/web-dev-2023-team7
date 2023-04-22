@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
-import { profileThunk, logoutThunk, updateUserThunk } from "../../services/auth-thunks";
+import { profileThunk, logoutThunk, updateUserThunk, profileByUIDThunk } from "../../services/auth-thunks";
 import { findLikesByUserId } from "../../likes/likes-thunks";
 import { getTrack } from "../music-service";
 import {findCommentsByUserId} from "../../comment/comments-thunks";
@@ -20,11 +20,22 @@ function ProfileScreen() {
         dispatch(updateUserThunk(profile));
     };
 
+    const extractUIDFromURL = () => {
+        const urlPath = window.location.pathname;
+        const uidRegex = /\/profile\/(\w+)/;
+        const match = urlPath.match(uidRegex);
+      
+        return match && match[1] ? match[1] : null;
+    };
+      
+    const uid = extractUIDFromURL();
+    console.log(uid); // This will print the extracted UID or null if not found in the URL
+
     console.log(profile)
 
     useEffect(() => {
         const asyncFetchData = async () => {
-            const {payload} = await dispatch(profileThunk());
+            const {payload} = uid ? await dispatch(profileByUIDThunk(uid)) : await dispatch(profileThunk());
             setProfile(payload);
 
             const likes = await dispatch(findLikesByUserId(payload._id));
@@ -71,15 +82,18 @@ function ProfileScreen() {
                                 <input className="spotify-input readOnly" type="text" readOnly
                                        value={profile.username}/>
                             </div>
+                            {!uid && (
                             <div className="spotify-input-group">
                                 <label className="spotify-input-label">Password</label>
                                 <input className="spotify-input readOnly" type="text" readOnly
                                        value={profile.password}/>
                             </div>
+                            )}
                             <div className="spotify-input-group">
                                 <label className="spotify-input-label">Role</label>
                                 <input className="spotify-input readOnly" type="text" readOnly value={profile.role}/>
                             </div>
+                            {!uid && (
                             <div className="spotify-input-group">
                                 <label className="spotify-input-label">Email</label>
                                 <input className="spotify-input" type="email"
@@ -93,6 +107,8 @@ function ProfileScreen() {
                                        }}
                                 />
                             </div>
+                            )}
+                            {!uid && (
                             <div className="spotify-input-group">
                                 <label className="spotify-input-label">First Name</label>
                                 <input className="spotify-input" type="text"
@@ -106,6 +122,8 @@ function ProfileScreen() {
                                        }}
                                 />
                             </div>
+                            )}
+                            {!uid && (
                             <div className="spotify-input-group">
                                 <label className="spotify-input-label">Last Name</label>
                                 <input className="spotify-input" type="text"
@@ -119,6 +137,7 @@ function ProfileScreen() {
                                        }}
                                 />
                             </div>
+                            )}
                         </>
                     )}
                     {currentUser && (
