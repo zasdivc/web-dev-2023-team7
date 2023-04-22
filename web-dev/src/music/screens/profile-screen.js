@@ -29,10 +29,18 @@ function ProfileScreen() {
     };
       
     const uid = extractUIDFromURL();
-    console.log(uid); // This will print the extracted UID or null if not found in the URL
+    console.log("current user is " + currentUser); // This will print the extracted UID or null if not found in the URL
     console.log("uid is" + uid);
-    console.log("currentUser id is" + currentUser._id);
-    const isCurrentUser = uid === currentUser._id;
+    if (uid === null && currentUser === null) {
+        navigate("/login");
+    }
+    console.log(uid); // This will print the extracted UID or null if not found in the URL
+    let isCurrentUser = false;
+    let hasCurrentUser = currentUser != null;
+    if (hasCurrentUser) {
+        console.log("currentUser id is" + currentUser._id);
+        isCurrentUser = uid === currentUser._id;
+    }
 
     console.log(profile)
 
@@ -155,6 +163,7 @@ function ProfileScreen() {
                     <button className="spotify-button" onClick={save}>Save</button>
                     <button className="spotify-button" onClick={() => navigate("/")}>Home</button>
                 </div>
+                {hasCurrentUser && (
                 <div className="user-activity-container">
                     <div className="likes-container">
                          <MusicList title="Likes" data={trackData} />
@@ -176,7 +185,8 @@ function ProfileScreen() {
                             ))}
                         </ul>
                     </div>
-                    </div>
+                </div>
+                )}
             </div>
         </div>
     );

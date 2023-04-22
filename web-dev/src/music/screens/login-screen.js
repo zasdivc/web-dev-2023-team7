@@ -42,6 +42,9 @@ function LoginScreen() {
             <button className="spotify-button" onClick={handleLogin}>
                 Login
             </button>
+            <button className="spotify-button" onClick={() => (navigate("/register"))}>
+                Back to Register
+            </button>
         </div>
     );
 
