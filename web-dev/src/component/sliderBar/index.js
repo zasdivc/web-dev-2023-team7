@@ -75,19 +75,6 @@ const Aside = (props) => {
           ></i>
           <span className={style["react-width-1400"]}>Search</span>
         </li>
-        <li
-          onClick={() => navigate("/likes")}
-          className={pathname.includes("/likes") ? style.active : ""}
-        >
-          <i
-            className={
-              pathname.includes("/likes")
-                ? "me-2 bi bi-heart-fill"
-                : "me-2 bi bi-heart"
-            }
-          ></i>
-          <span className={style["react-width-1400"]}>Likes</span>
-        </li>
       </ul>
 
       <p

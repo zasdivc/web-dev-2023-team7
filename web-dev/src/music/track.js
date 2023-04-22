@@ -195,9 +195,11 @@ function TrackDetailsScreen() {
 
                       {currentUser.role === 'admin'&&<i className="bi bi-x-lg float-end"
                                                        onClick={() => deleteCommentHandler(comment._id)}></i>}
+                      <Link to={`/profile/${comment.user}`} onClick={() => console.log("Username clicked")}>
                       <span className={`${comment.role === "admin" ? "text-danger" : (comment.role  === "moderator" ? "text-primary" : "")}`}>
                         <span className="fw-bold me-3">{comment.username}</span><i className="bi bi-patch-check-fill"></i>
                     </span>
+                    </Link>
                       <span className="text-muted"> {comment.createdAt.split("T")[0]} {comment.createdAt.split("T")[1].split(".")[0]}</span>
                       <br/>
                       <div className={`${comment.role === "admin" ? "text-danger" : (comment.role  === "premium" ? "text-primary" : "")}`}>

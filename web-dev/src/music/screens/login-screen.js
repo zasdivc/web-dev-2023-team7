@@ -16,7 +16,7 @@ function LoginScreen() {
                 alert("wrong information");
                 navigate("/login");
             } else {
-                navigate("/profile");
+                navigate("/main");
             }
           } catch (e) {
             console.log(e);
