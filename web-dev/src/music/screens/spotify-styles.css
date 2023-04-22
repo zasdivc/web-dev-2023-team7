@@ -82,15 +82,97 @@
     cursor: not-allowed;
 }
 
-/*.spotify-container::before {*/
-/*    content: "";*/
-/*    position: absolute;*/
-/*    top: 0;*/
-/*    left: 0;*/
-/*    width: 100%;*/
-/*    height: 100%;*/
-/*    background: radial-gradient(circle, #1db954 10%, transparent 40%);*/
-/*    background-size: 50px 50px;*/
-/*    animation: glowing 2s infinite;*/
-/*    z-index: -1;*/
-/*}*/
+
+.likes-section {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #000000;
+}
+
+.likes-title {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+}
+
+.likes-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.like-item {
+    padding: 5px 0;
+    border-bottom: 1px solid #ccc;
+}
+
+.like-item:last-child {
+    border-bottom: none;
+}
+
+.track-name {
+    font-weight: 500;
+}
+
+.profile-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 2rem;
+}
+
+.profile-info {
+    flex: 1;
+    max-width: 400px;
+}
+
+.likes-container {
+    flex: 2;
+    margin-left: 2rem;
+    width: 100%;
+    max-width: 800px; /* Adjust the max-width according to your preference */
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.like-card-container {
+    display: inline-block;
+}
+
+.horizontal-scroll-container {
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 10px;
+}
+
+.user-activity-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+.comment-link {
+    text-decoration: none;
+    color: #1db954;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.comment-link:hover {
+    text-decoration: underline;
+}
+
+.comment-textbox {
+    cursor: pointer;
+    background-color: #000;
+    color: #fff;
+}
+
+.comments-container {
+    height: 300px;
+    overflow-y: scroll;
+
+}
