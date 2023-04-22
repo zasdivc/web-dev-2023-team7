@@ -30,6 +30,9 @@ function ProfileScreen() {
       
     const uid = extractUIDFromURL();
     console.log(uid); // This will print the extracted UID or null if not found in the URL
+    console.log("uid is" + uid);
+    console.log("currentUser id is" + currentUser._id);
+    const isCurrentUser = uid === currentUser._id;
 
     console.log(profile)
 
@@ -82,7 +85,7 @@ function ProfileScreen() {
                                 <input className="spotify-input readOnly" type="text" readOnly
                                        value={profile.username}/>
                             </div>
-                            {!uid && (
+                            {(isCurrentUser || !uid) && (
                             <div className="spotify-input-group">
                                 <label className="spotify-input-label">Password</label>
                                 <input className="spotify-input readOnly" type="text" readOnly
@@ -93,7 +96,7 @@ function ProfileScreen() {
                                 <label className="spotify-input-label">Role</label>
                                 <input className="spotify-input readOnly" type="text" readOnly value={profile.role}/>
                             </div>
-                            {!uid && (
+                            {(isCurrentUser || !uid) && (
                             <div className="spotify-input-group">
                                 <label className="spotify-input-label">Email</label>
                                 <input className="spotify-input" type="email"
@@ -108,7 +111,7 @@ function ProfileScreen() {
                                 />
                             </div>
                             )}
-                            {!uid && (
+                            {(isCurrentUser || !uid) && (
                             <div className="spotify-input-group">
                                 <label className="spotify-input-label">First Name</label>
                                 <input className="spotify-input" type="text"
@@ -123,7 +126,7 @@ function ProfileScreen() {
                                 />
                             </div>
                             )}
-                            {!uid && (
+                            {(isCurrentUser || !uid) && (
                             <div className="spotify-input-group">
                                 <label className="spotify-input-label">Last Name</label>
                                 <input className="spotify-input" type="text"
