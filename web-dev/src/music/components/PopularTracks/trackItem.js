@@ -8,12 +8,14 @@ const TrackItem = ({ index, artistTrack }) => {
     const [like, setLike] = useState([]);
     const fetchLike = async () => {
         console.log("fetching like");
-        const response = await findLikesByTrackIdAndUserId(artistTrack.id, currentUser._id);
-        console.log("get like response" + JSON.stringify(response, null, 2));
-        setLike(response);
-        console.log("like length" + response.length);
+        if (currentUser) {
+            const response = await findLikesByTrackIdAndUserId(artistTrack.id, currentUser._id);
+            console.log("get like response" + JSON.stringify(response, null, 2));
+            setLike(response);
+            console.log("like length" + response.length);
+        }
     }
-
+    // console.log("current user is null ? " + currentUser === undefined);
     const diskLike = async () => {
         console.log("deleting like");
         await deleteLike(like[0]._id);
@@ -74,7 +76,10 @@ const TrackItem = ({ index, artistTrack }) => {
                     controls
                     src={artistTrack.preview_url}
                 ></audio>
+                { currentUser && (
+                    <span>
                 {like.length > 0 ? <i className="bi bi-heart-fill size-20 ms-4 text-danger" onClick={() => diskLike()}> </i> : <i className="bi bi-heart size-20 ms-4 text-muted" onClick={() => clickLike()}> </i>}
+                    </span>)}
             </td>
             <td className="align-middle">
                 {Math.floor(artistTrack.duration_ms / 60000)}:

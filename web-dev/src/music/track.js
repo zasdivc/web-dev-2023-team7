@@ -6,6 +6,7 @@ import { getArtist, getArtistTopTracks, getTrack } from "./music-service";
 import {createLike, deleteLike, findLikesByTrackIdAndUserId} from "../likes/likes-service";
 import {createComment, deleteComment, findCommentsByTrackId} from "../comment/comments-service";
 import Tracklist from "./components/PopularTracks/tracklist";
+import {useNavigate} from "react-router";
 
 function TrackDetailsScreen() {
   const { id } = useParams();
@@ -17,6 +18,8 @@ function TrackDetailsScreen() {
   const [commentsArray, setCommentsArray] = useState([]);
   console.log("current user" + JSON.stringify(currentUser, null, 2));
   let [comment, setComment] = useState('');
+  const navigate = useNavigate();
+
   const fetchTrack = async () => {
     console.log("fetching track");
     const response = await getTrack(id);
@@ -27,17 +30,22 @@ function TrackDetailsScreen() {
 
   const postComment = async () => {
     console.log("post comment");
-    const createdComment = {
-      user: currentUser._id,
-      username: currentUser.username,
-      role: currentUser.role,
-      trackId: id,
-      trackName: track.name,
-      comment: comment
-    };
-    console.log(createdComment);
-    const newComment = await createComment(createdComment);
-    setCommentsArray([...commentsArray, newComment]);
+    if (currentUser) {
+      const createdComment = {
+        user: currentUser._id,
+        username: currentUser.username,
+        role: currentUser.role,
+        trackId: id,
+        trackName: track.name,
+        comment: comment
+      };
+      console.log(createdComment);
+      const newComment = await createComment(createdComment);
+      setCommentsArray([...commentsArray, newComment]);
+    } else {
+      navigate("/login");
+    }
+
   };
 
   const deleteCommentHandler = async (id) => {
@@ -46,10 +54,12 @@ function TrackDetailsScreen() {
   }
   const fetchLike = async () => {
     console.log("fetching like");
-    const response = await findLikesByTrackIdAndUserId(id, currentUser._id);
-    console.log("get like response" + JSON.stringify(response, null, 2));
-    setLike(response);
-    console.log("like length" + response.length);
+    if (currentUser) {
+      const response = await findLikesByTrackIdAndUserId(id, currentUser._id);
+      console.log("get like response" + JSON.stringify(response, null, 2));
+      setLike(response);
+      console.log("like length" + response.length);
+    }
   }
 
   const diskLike = async () => {
@@ -157,7 +167,11 @@ function TrackDetailsScreen() {
 
           <div className="d-flex  align-items-center mt-3">
             <audio controls src={track.preview_url}></audio>
-            {like.length > 0 ? <i className="bi bi-heart-fill size-40 ms-4 text-danger" onClick={() => diskLike()}> </i> : <i className="bi bi-heart size-40 ms-4 text-muted" onClick={() => clickLike()}> </i>}          </div>
+            { currentUser && (
+                <span>
+            {like.length > 0 ? <i className="bi bi-heart-fill size-40 ms-4 text-danger" onClick={() => diskLike()}> </i> : <i className="bi bi-heart size-40 ms-4 text-muted" onClick={() => clickLike()}> </i>}
+                  </span>)}
+                </div>
 
           <h2 className="mt-5 mb-4">
             Popular tracks by {track.album.artists[0].name}
@@ -193,7 +207,7 @@ function TrackDetailsScreen() {
                            width="50px" height="50px"
                            src="/images/default.JPG"/>
 
-                      {currentUser.role === 'admin'&&<i className="bi bi-x-lg float-end"
+                      {currentUser && currentUser.role === 'admin'&&<i className="bi bi-x-lg float-end"
                                                        onClick={() => deleteCommentHandler(comment._id)}></i>}
                       <span className={`${comment.role === "admin" ? "text-danger" : (comment.role  === "moderator" ? "text-primary" : "")}`}>
                         <span className="fw-bold me-3">{comment.username}</span><i className="bi bi-patch-check-fill"></i>
