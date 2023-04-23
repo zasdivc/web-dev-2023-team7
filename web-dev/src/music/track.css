@@ -7,3 +7,9 @@
 .table-responsive .table tbody tr {
   border-bottom: 1px solid #fff;
 }
+
+.custom-link {
+  text-decoration: underline;
+  color: inherit;
+}
+
