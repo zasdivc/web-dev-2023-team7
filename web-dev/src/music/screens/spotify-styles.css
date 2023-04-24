@@ -5,7 +5,8 @@
     justify-content: center;
     width: 100%;
     min-height: 100vh;
-    background: linear-gradient(270deg, #121212, #1db954, #121212, #1db954);
+    /*background: linear-gradient(270deg, #121212, #1db954, #121212, #1db954);*/
+    background: #131318;
     background-size: 400% 400%;
     animation: glowing 10s ease infinite;
     font-family: "Roboto", sans-serif;
