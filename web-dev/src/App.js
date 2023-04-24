@@ -14,11 +14,13 @@ import { Home } from "./music/home/Home";
 import { Main } from "./music/home/modules/main/Main";
 import { Search } from "./music/home/modules/search/Search";
 import { Likes } from "./music/home/modules/likes/Likes";
+import SearchStore from "./music/home/modules/search/searchStore";
 
 const store = configureStore({
   reducer: {
     auth: authReducer,
     comments: commentReducer,
+    searchStore: SearchStore,
   },
 });
 

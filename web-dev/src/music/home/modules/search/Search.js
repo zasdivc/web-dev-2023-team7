@@ -1,13 +1,16 @@
 import "./index.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, memo } from "react";
 import { useNavigate } from "react-router";
-
 import { searchAlbumsAndTracks } from "../../../music-service";
+import { useSelector, useDispatch } from "react-redux";
+import { setSearchStrAction } from "./searchStore";
 
-export const Search = () => {
+const Search = () => {
   const [searchStr, setSearchStr] = useState("");
   const [tracksList, setTracksList] = useState([]);
   const [albumsList, setAlbumsList] = useState([]);
+  const searchStrForStore = useSelector((state) => state.searchStore.searchStr);
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
@@ -26,8 +29,8 @@ export const Search = () => {
   };
 
   const getList = () => {
-    if (searchStr) {
-      searchAlbumsAndTracks(searchStr).then((res) => {
+    if (searchStrForStore || searchStr) {
+      searchAlbumsAndTracks(searchStrForStore || searchStr).then((res) => {
         setTracksList(res.tracks.items);
         setAlbumsList(res.albums.items);
       });
@@ -37,21 +40,22 @@ export const Search = () => {
     }
   };
 
-  useEffect(() => {
-    const debouncedGetList = debounce(() => {
-      if (searchStr) {
-        searchAlbumsAndTracks(searchStr).then((res) => {
-          setTracksList(res.tracks.items);
-          setAlbumsList(res.albums.items);
-        });
-      } else {
-        setTracksList([]);
-        setAlbumsList([]);
-      }
-    }, 500);
+  const inputChange = (e) => {
+    setSearchStr(e.target.value);
+    dispatch(setSearchStrAction(e.target.value));
+  };
 
-    debouncedGetList();
+  useEffect(() => {
+    setSearchStr(searchStrForStore);
+  }, []);
+
+  useEffect(() => {
+    dispatch(setSearchStrAction(searchStr));
   }, [searchStr]);
+
+  useEffect(() => {
+    getList();
+  }, [searchStrForStore]);
 
   return (
     <div className="search-page">
@@ -63,16 +67,16 @@ export const Search = () => {
             type="text"
             placeholder="What do you want to listen to?"
             value={searchStr}
-            onChange={(e) => {
-              setSearchStr(e.target.value);
-            }}
+            onChange={inputChange}
             style={{ border: "none" }}
           />
           {searchStr && (
             <img
               className="icon-img icon-close"
               src={require("./icon-close.png")}
-              onClick={() => setSearchStr("")}
+              onClick={() => {
+                setSearchStr("");
+              }}
             />
           )}
         </div>
@@ -156,3 +160,5 @@ export const Search = () => {
     </div>
   );
 };
+
+export { Search };

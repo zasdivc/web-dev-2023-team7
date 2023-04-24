@@ -26,6 +26,11 @@ const Aside = (props) => {
     navigate("/profile");
   }
 
+  const btnLogout = () => {
+    localStorage.clear();
+    navigate("/login");
+  };
+
   return (
     <div className={props.className + " " + style.siderbar}>
       <div className={style.sideHeader + " d-flex align-items-center"}>
@@ -76,33 +81,71 @@ const Aside = (props) => {
           <span className={style["react-width-1400"]}>Search</span>
         </li>
       </ul>
+      {currentUser ? (
+        <>
+          <p
+            className={
+              "text-white d-flex align-items-center mt-auto " + style["pl-30"]
+            }
+          >
+            <i
+              className=" bi bi-person-check-fill"
+              style={{ fontSize: "24px" }}
+            ></i>
 
-      <p
-        className={
-          "text-white d-flex align-items-center mt-auto " + style["pl-30"]
-        }
-      >
-        <i
-          className=" bi bi-box-arrow-in-left"
-          style={{ fontSize: "24px" }}
-        ></i>
-        <button
-          className={"btn btn-link text-white text-decoration-none "}
-          onClick={() => navigate("/login")}
-        >
-          <span className={style["react-width-1400"]}>Login</span>
-        </button>
-      </p>
+            <span className={style["react-width-1400"]}>
+              {currentUser.username}
+            </span>
+          </p>
+          <p
+            className={
+              "text-white d-flex align-items-center mt-auto " + style["pl-30"]
+            }
+          >
+            <i
+              className=" bi bi-box-arrow-in-left"
+              style={{ fontSize: "24px" }}
+            ></i>
+            <button
+              className={"btn btn-link text-white text-decoration-none "}
+              onClick={btnLogout}
+            >
+              <span className={style["react-width-1400"]}>Logout</span>
+            </button>
+          </p>
+        </>
+      ) : (
+        <>
+          <p
+            className={
+              "text-white d-flex align-items-center mt-auto " + style["pl-30"]
+            }
+          >
+            <i
+              className=" bi bi-box-arrow-in-left"
+              style={{ fontSize: "24px" }}
+            ></i>
+            <button
+              className={"btn btn-link text-white text-decoration-none "}
+              onClick={() => navigate("/login")}
+            >
+              <span className={style["react-width-1400"]}>Login</span>
+            </button>
+          </p>
 
-      <p className={"text-white d-flex align-items-center " + style["pl-30"]}>
-        <i className=" bi bi-people-fill" style={{ fontSize: "24px" }}></i>
-        <button
-          className={"btn btn-link text-white text-decoration-none "}
-          onClick={() => navigate("/register")}
-        >
-          <span className={style["react-width-1400"]}>Register</span>
-        </button>
-      </p>
+          <p
+            className={"text-white d-flex align-items-center " + style["pl-30"]}
+          >
+            <i className=" bi bi-people-fill" style={{ fontSize: "24px" }}></i>
+            <button
+              className={"btn btn-link text-white text-decoration-none "}
+              onClick={() => navigate("/register")}
+            >
+              <span className={style["react-width-1400"]}>Register</span>
+            </button>
+          </p>
+        </>
+      )}
 
       <p className={"text-white d-flex align-items-center  " + style["pl-30"]}>
         <i className=" bi bi-people-fill" style={{ fontSize: "24px" }}></i>

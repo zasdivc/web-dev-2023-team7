@@ -4,6 +4,7 @@ import {
   getTrackRecommendations,
   getNewReleasedAlbums,
 } from "../../../music-service";
+import { useSelector } from "react-redux";
 
 export const Main = () => {
   const [newReleaseList, setNewReleaseList] = useState([]);
@@ -13,6 +14,8 @@ export const Main = () => {
   const [recommendationListSource, setRecommendationListResource] = useState(
     []
   );
+
+  const curUser = useSelector((state) => state.auth.currentUser);
 
   const handleGetNewReleasbedAlbums = async () => {
     await getNewReleasedAlbums().then((res) => {
@@ -42,11 +45,21 @@ export const Main = () => {
         key="New Release"
         title={"New Release"}
       />
-      <MusicList
-        data={recommendationList}
-        key="Recommendation"
-        title={"Recommendation"}
-      />
+      {curUser ? (
+        <MusicList
+          data={recommendationList}
+          key="Recommendation"
+          title={"Recommendation"}
+        />
+      ) : (
+        <div style={{ widht: "100%", height: "360px" }}>
+          <h3 className={"text-white"}>Recommendation</h3>
+          <img
+            src={require("../search/jay.jpeg")}
+            style={{ maxWidth: "100%", maxHeight: "100%", objectFit: "cover" }}
+          />
+        </div>
+      )}
     </div>
   );
 };
