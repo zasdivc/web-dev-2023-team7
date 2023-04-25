@@ -6,7 +6,8 @@
 import "./style.module.css";
 import style from "./style.module.css";
 import HKY from "../../images/HKY.png";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { logoutThunk } from "../../services/auth-thunks";
 
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -15,6 +16,7 @@ const Aside = (props) => {
   const location = useLocation();
   const pathname = location.pathname;
   const { currentUser } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
 
   //check if user is logged in
   const isLoggedIn = () => {
@@ -28,6 +30,7 @@ const Aside = (props) => {
 
   const btnLogout = () => {
     localStorage.clear();
+    dispatch(logoutThunk());
     navigate("/login");
   };
 
