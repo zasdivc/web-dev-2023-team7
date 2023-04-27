@@ -95,15 +95,17 @@ const Aside = (props) => {
               className=" bi bi-person-check-fill"
               style={{ fontSize: "24px" }}
             ></i>
-
-            <span className={style["react-width-1400"]}>
-              {currentUser.username}
-            </span>
+            <button
+              className={"btn btn-link text-white text-decoration-none "}
+              onClick={() => {}}
+            >
+              <span className={style["react-width-1400"]}>
+                {currentUser.username}
+              </span>
+            </button>
           </p>
           <p
-            className={
-              "text-white d-flex align-items-center mt-auto " + style["pl-30"]
-            }
+            className={"text-white d-flex align-items-center " + style["pl-30"]}
           >
             <i
               className=" bi bi-box-arrow-in-left"
@@ -139,7 +141,10 @@ const Aside = (props) => {
           <p
             className={"text-white d-flex align-items-center " + style["pl-30"]}
           >
-            <i className=" bi bi-person-plus-fill" style={{ fontSize: "24px" }}></i>
+            <i
+              className=" bi bi-person-plus-fill"
+              style={{ fontSize: "24px" }}
+            ></i>
             <button
               className={"btn btn-link text-white text-decoration-none "}
               onClick={() => navigate("/register")}
