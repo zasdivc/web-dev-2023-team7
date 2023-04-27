@@ -83,6 +83,9 @@
     cursor: not-allowed;
 }
 
+.spotify-input-group label {
+  color: white;
+}
 
 .likes-section {
     margin-top: 20px;

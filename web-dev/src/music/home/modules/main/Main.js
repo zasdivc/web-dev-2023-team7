@@ -55,7 +55,7 @@ export const Main = () => {
         <div style={{ widht: "100%", height: "360px" }}>
           <h3 className={"text-white"}>Recommendation</h3>
           <img
-            src={require("../search/jay.jpeg")}
+            src={require("../search/MJ2.jpeg")}
             style={{ maxWidth: "100%", maxHeight: "100%", objectFit: "cover" }}
           />
         </div>

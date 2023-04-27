@@ -139,7 +139,7 @@ const Aside = (props) => {
           <p
             className={"text-white d-flex align-items-center " + style["pl-30"]}
           >
-            <i className=" bi bi-people-fill" style={{ fontSize: "24px" }}></i>
+            <i className=" bi bi-person-plus-fill" style={{ fontSize: "24px" }}></i>
             <button
               className={"btn btn-link text-white text-decoration-none "}
               onClick={() => navigate("/register")}
