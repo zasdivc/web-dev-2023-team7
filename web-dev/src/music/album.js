@@ -75,7 +75,6 @@ function AlbumDetailScreen() {
                         controls
                         src={albumTrack.preview_url}
                       ></audio>
-                      <i className="bi bi-heart size-20 ms-4 text-muted"></i>
                     </td>
                     <td className="align-middle">
                       {Math.floor(albumTrack.duration_ms / 60000)}:
