@@ -43,17 +43,17 @@ export const Main = () => {
       <MusicList
         data={newReleaseList}
         key="New Release"
-        title={"New Release"}
+        title={"New Release Albums"}
       />
       {curUser ? (
         <MusicList
           data={recommendationList}
           key="Recommendation"
-          title={"Recommendation"}
+          title={"Recommendation Tracks"}
         />
       ) : (
         <div style={{ widht: "100%", height: "360px" }}>
-          <h3 className={"text-white"}>Recommendation</h3>
+          <h3 className={"text-white"}>Recommendation Tracks</h3>
           <img
             src={require("../search/MJ2.jpeg")}
             style={{ maxWidth: "100%", maxHeight: "100%", objectFit: "cover" }}

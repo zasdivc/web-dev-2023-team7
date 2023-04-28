@@ -50,7 +50,7 @@ export const MusicList = ({ title, data }) => {
                     {data.map((item, index) => {
                         return (
                             <>
-                                {title === "New Release" && (
+                                {title === "New Release Albums" && (
                                     <div
                                         key={index}
                                         className={
@@ -76,7 +76,7 @@ export const MusicList = ({ title, data }) => {
                                         </div>
                                     </div>
                                 )}
-                                {title === "Recommendation" && (
+                                {title === "Recommendation Tracks" && (
                                     <div
                                         key={index}
                                         className={
